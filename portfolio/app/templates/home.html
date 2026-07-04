@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Início — Portfólio{% endblock %}
+{% block meta_description %}Portfólio de {{ nome_portfolio|default('Seu Nome') }}: obras, projetos e trabalhos selecionados.{% endblock %}
+
+{% block content %}
+<section class="hero container">
+    <div class="hero-text">
+        <p class="eyebrow">Olá, meu nome é</p>
+        <h1>{{ nome_portfolio|default('Seu Nome') }}</h1>
+        <p class="hero-desc">
+            {{ descricao_portfolio|default('Uma breve descrição sobre você: o que você faz, seu estilo e o
+            tipo de projeto que gosta de criar.') }}
+        </p>
+        <div class="hero-actions">
+            <a href="{{ url_for('main.galeria') }}" class="btn btn-primary">Ver projetos</a>
+            <a href="{{ url_for('main.contato') }}" class="btn btn-ghost">Contato</a>
+        </div>
+    </div>
+
+    <div class="hero-art">
+        <div class="hero-blob" aria-hidden="true"></div>
+        {% if foto_perfil %}
+        <img class="hero-photo" src="{{ url_for('static', filename='uploads/' ~ foto_perfil) }}" alt="Foto de {{ nome_portfolio|default('Seu Nome') }}">
+        {% else %}
+        <div class="hero-photo hero-photo-placeholder" aria-hidden="true"></div>
+        {% endif %}
+    </div>
+</section>
+
+{% if obras_destaque %}
+<section class="destaques container" aria-label="Projetos em destaque">
+    <div class="section-head">
+        <h2 class="section-title">Projetos em destaque</h2>
+        <a href="{{ url_for('main.galeria') }}" class="section-link">Ver toda a galeria →</a>
+    </div>
+
+    <div class="carousel" data-carousel>
+        <div class="carousel-viewport">
+            <ul class="carousel-track" data-carousel-track>
+                {% for obra in obras_destaque %}
+                <li class="carousel-slide">
+                    <article class="obra-card">
+                        <a href="{{ url_for('main.obra', slug=obra.slug) }}" class="obra-media">
+                            {% if obra.imagem %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ obra.imagem) }}" alt="{{ obra.titulo }}" loading="lazy">
+                            {% endif %}
+                        </a>
+                        <div class="obra-info">
+                            <span class="obra-index">{{ '%02d' % loop.index }}</span>
+                            <h3>{{ obra.titulo }}</h3>
+                            {% if obra.descricao_curta %}
+                            <p>{{ obra.descricao_curta }}</p>
+                            {% endif %}
+                            <a href="{{ url_for('main.obra', slug=obra.slug) }}" class="btn btn-small">Ver projeto</a>
+                        </div>
+                    </article>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <button class="carousel-btn carousel-prev" type="button" data-carousel-prev aria-label="Projeto anterior">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="carousel-btn carousel-next" type="button" data-carousel-next aria-label="Próximo projeto">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+    </div>
+
+    <div class="carousel-dots" data-carousel-dots role="tablist" aria-label="Selecionar projeto"></div>
+</section>
+{% endif %}
+{% endblock %}

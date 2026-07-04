@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Galeria — Portfólio{% endblock %}
+
+{% block content %}
+<section class="galeria">
+    <h1>Galeria</h1>
+    <div class="grid">
+        {% for obra in obras %}
+        <article class="obra-card">
+            <a href="{{ url_for('main.obra', slug=obra.slug) }}">
+                {% if obra.imagem %}
+                <img src="{{ url_for('static', filename='uploads/' ~ obra.imagem) }}" alt="{{ obra.titulo }}">
+                {% endif %}
+                <h2>{{ obra.titulo }}</h2>
+            </a>
+            {% if obra.categoria %}
+            <p class="obra-categoria">{{ obra.categoria }}</p>
+            {% endif %}
+        </article>
+        {% else %}
+        <p>Nenhuma obra cadastrada ainda.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

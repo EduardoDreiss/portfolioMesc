@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ obra.titulo }} — Portfólio{% endblock %}
+
+{% block meta_description %}{{ obra.descricao|striptags|truncate(160, True, '…') if obra.descricao else obra.titulo }}{% endblock %}
+
+{% block content %}
+<section class="obra">
+    <article>
+        <h1>{{ obra.titulo }}</h1>
+        {% if obra.categoria %}
+        <p class="obra-categoria">{{ obra.categoria }}</p>
+        {% endif %}
+        {% if obra.imagem %}
+        <img src="{{ url_for('static', filename='uploads/' ~ obra.imagem) }}" alt="{{ obra.titulo }}">
+        {% endif %}
+        {% if obra.descricao %}
+        <div class="obra-descricao">{{ obra.descricao }}</div>
+        {% endif %}
+    </article>
+    <p><a href="{{ url_for('main.galeria') }}">&larr; Voltar à galeria</a></p>
+</section>
+{% endblock %}
