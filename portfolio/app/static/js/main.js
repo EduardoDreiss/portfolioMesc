@@ -24,11 +24,14 @@ function initNavToggle() {
 
 /* ---------- carrossel de projetos ---------- */
 function initCarousel(carousel) {
+    // busca no escopo do "pai" para funcionar tanto com botões dentro do
+    // .carousel quanto em um rodapé de controles ao lado (irmão do .carousel)
+    const scope = carousel.parentElement || carousel;
     const viewport = carousel.querySelector(".carousel-viewport");
     const track = carousel.querySelector("[data-carousel-track]");
-    const prevBtn = carousel.querySelector("[data-carousel-prev]");
-    const nextBtn = carousel.querySelector("[data-carousel-next]");
-    const dotsWrap = carousel.parentElement.querySelector("[data-carousel-dots]");
+    const prevBtn = scope.querySelector("[data-carousel-prev]");
+    const nextBtn = scope.querySelector("[data-carousel-next]");
+    const dotsWrap = scope.querySelector("[data-carousel-dots]");
     if (!viewport || !track) return;
 
     const slides = Array.from(track.children);

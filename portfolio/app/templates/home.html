@@ -2,73 +2,76 @@
 
 {% block title %}Início — Portfólio{% endblock %}
 {% block meta_description %}Portfólio de {{ nome_portfolio|default('Seu Nome') }}: obras, projetos e trabalhos selecionados.{% endblock %}
+{% block body_class %}page-home{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
 
 {% block content %}
-<section class="hero container">
-    <div class="hero-text">
-        <p class="eyebrow">Olá, meu nome é</p>
-        <h1>{{ nome_portfolio|default('Seu Nome') }}</h1>
-        <p class="hero-desc">
-            {{ descricao_portfolio|default('Uma breve descrição sobre você: o que você faz, seu estilo e o
-            tipo de projeto que gosta de criar.') }}
-        </p>
-        <div class="hero-actions">
-            <a href="{{ url_for('main.galeria') }}" class="btn btn-primary">Ver projetos</a>
-            <a href="{{ url_for('main.contato') }}" class="btn btn-ghost">Contato</a>
-        </div>
-    </div>
-
-    <div class="hero-art">
-        <div class="hero-blob" aria-hidden="true"></div>
-        {% if foto_perfil %}
-        <img class="hero-photo" src="{{ url_for('static', filename='uploads/' ~ foto_perfil) }}" alt="Foto de {{ nome_portfolio|default('Seu Nome') }}">
-        {% else %}
-        <div class="hero-photo hero-photo-placeholder" aria-hidden="true"></div>
+<section class="hero-cover">
+    <div class="hero-cover-media">
+        {% if hero_imagem %}
+        <img src="{{ url_for('static', filename='uploads/' ~ hero_imagem) }}" alt="">
         {% endif %}
     </div>
+    <div class="hero-cover-grain" aria-hidden="true"></div>
+    <div class="hero-cover-scrim" aria-hidden="true"></div>
+
+    <div class="hero-cover-content container">
+        <p class="hero-kicker">{{ hero_tagline|default('Design · Direção de arte · Ilustração') }}</p>
+        <h1 class="stylized-heading hero-title" data-text="{{ nome_portfolio|default('Seu Nome') }}">{{ nome_portfolio|default('Seu Nome') }}</h1>
+    </div>
+
+    <a href="#trabalhos" class="hero-scroll-cue">
+        <span>Ver trabalhos</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
+    </a>
 </section>
 
 {% if obras_destaque %}
-<section class="destaques container" aria-label="Projetos em destaque">
-    <div class="section-head">
-        <h2 class="section-title">Projetos em destaque</h2>
-        <a href="{{ url_for('main.galeria') }}" class="section-link">Ver toda a galeria →</a>
+<section class="works" id="trabalhos" aria-label="Projetos em destaque">
+    <div class="works-head container">
+        <p class="works-kicker">Trabalhos selecionados</p>
+        <div class="works-head-row">
+            <h2 class="works-title">Projetos em destaque</h2>
+            <a href="{{ url_for('main.galeria') }}" class="section-link">Ver toda a galeria →</a>
+        </div>
     </div>
 
-    <div class="carousel" data-carousel>
-        <div class="carousel-viewport">
-            <ul class="carousel-track" data-carousel-track>
+    <div class="carousel works-carousel" data-carousel>
+        <div class="carousel-viewport works-viewport">
+            <ul class="carousel-track works-track" data-carousel-track>
                 {% for obra in obras_destaque %}
-                <li class="carousel-slide">
-                    <article class="obra-card">
-                        <a href="{{ url_for('main.obra', slug=obra.slug) }}" class="obra-media">
+                <li class="carousel-slide work-slide">
+                    <a class="work-cover" href="{{ url_for('main.obra', slug=obra.slug) }}">
+                        <span class="work-media">
                             {% if obra.imagem %}
                             <img src="{{ url_for('static', filename='uploads/' ~ obra.imagem) }}" alt="{{ obra.titulo }}" loading="lazy">
                             {% endif %}
-                        </a>
-                        <div class="obra-info">
-                            <span class="obra-index">{{ '%02d' % loop.index }}</span>
-                            <h3>{{ obra.titulo }}</h3>
-                            {% if obra.descricao_curta %}
-                            <p>{{ obra.descricao_curta }}</p>
-                            {% endif %}
-                            <a href="{{ url_for('main.obra', slug=obra.slug) }}" class="btn btn-small">Ver projeto</a>
-                        </div>
-                    </article>
+                        </span>
+                        <span class="work-scrim" aria-hidden="true"></span>
+                        <span class="work-index" aria-hidden="true">{{ '%02d' % loop.index }}</span>
+                        <span class="work-caption">
+                            <span class="work-category">{{ obra.categoria|default('Projeto') }}</span>
+                            <h3 class="stylized-heading work-title" data-text="{{ obra.titulo }}">{{ obra.titulo }}</h3>
+                        </span>
+                    </a>
                 </li>
                 {% endfor %}
             </ul>
         </div>
-
-        <button class="carousel-btn carousel-prev" type="button" data-carousel-prev aria-label="Projeto anterior">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>
-        </button>
-        <button class="carousel-btn carousel-next" type="button" data-carousel-next aria-label="Próximo projeto">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
-        </button>
     </div>
 
-    <div class="carousel-dots" data-carousel-dots role="tablist" aria-label="Selecionar projeto"></div>
+    <div class="works-controls container">
+        <button class="carousel-btn works-btn" type="button" data-carousel-prev aria-label="Projeto anterior">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <div class="carousel-dots works-dots" data-carousel-dots role="tablist" aria-label="Selecionar projeto"></div>
+        <button class="carousel-btn works-btn" type="button" data-carousel-next aria-label="Próximo projeto">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+    </div>
 </section>
 {% endif %}
 {% endblock %}

@@ -20,7 +20,7 @@
     --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
     /* layout */
-    --container-w: min(95%, 1600px);
+    --container-w: 1400px;
     --radius-lg: 28px;
     --radius-md: 16px;
     --radius-sm: 10px;
@@ -32,6 +32,11 @@
 /* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+html, body {
+    /* evita scroll horizontal causado pelo menu off-canvas (position:fixed +
+       transform) no mobile, mesmo com o menu fechado */
+    overflow-x: hidden;
+}
 body {
     margin: 0;
     font-family: var(--font-body);
