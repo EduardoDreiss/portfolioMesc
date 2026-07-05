@@ -3,24 +3,26 @@
 {% block title %}Galeria — Portfólio{% endblock %}
 
 {% block content %}
-<section class="galeria">
-    <h1>Galeria</h1>
-    <div class="grid">
-        {% for obra in obras %}
-        <article class="obra-card">
-            <a href="{{ url_for('main.obra', slug=obra.slug) }}">
-                {% if obra.imagem %}
-                <img src="{{ url_for('static', filename='uploads/' ~ obra.imagem) }}" alt="{{ obra.titulo }}">
+<section class="page-section galeria">
+    <div class="container">
+        <h1>Galeria</h1>
+        <div class="galeria-grid">
+            {% for obra in obras %}
+            <article class="galeria-card">
+                <a href="{{ url_for('main.obra', slug=obra.slug) }}">
+                    {% if obra.imagem %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ obra.imagem) }}" alt="{{ obra.titulo }}" loading="lazy">
+                    {% endif %}
+                    <h2>{{ obra.titulo }}</h2>
+                </a>
+                {% if obra.categoria %}
+                <p class="obra-categoria">{{ obra.categoria }}</p>
                 {% endif %}
-                <h2>{{ obra.titulo }}</h2>
-            </a>
-            {% if obra.categoria %}
-            <p class="obra-categoria">{{ obra.categoria }}</p>
-            {% endif %}
-        </article>
-        {% else %}
-        <p>Nenhuma obra cadastrada ainda.</p>
-        {% endfor %}
+            </article>
+            {% else %}
+            <p>Nenhuma obra cadastrada ainda.</p>
+            {% endfor %}
+        </div>
     </div>
 </section>
 {% endblock %}

@@ -21,13 +21,14 @@
 
     <header class="site-header">
         <div class="container header-inner">
-            <a class="logo" href="{{ url_for('main.home') }}">Portfólio<span class="logo-dot">.</span></a>
+            <a class="logo" href="{{ url_for('main.home') }}">Portfólio Mesc<span class="logo-dot">.</span></a>
 
             <nav class="site-nav" id="site-nav">
-                <a href="{{ url_for('main.home') }}">Início</a>
-                <a href="{{ url_for('main.galeria') }}">Galeria</a>
-                <a href="{{ url_for('main.sobre') }}">Sobre</a>
-                <a href="{{ url_for('main.contato') }}" class="btn btn-nav">Contato</a>
+                {% set ep = request.endpoint %}
+                <a href="{{ url_for('main.home') }}"{% if ep == 'main.home' %} class="is-active"{% endif %}>Início</a>
+                <a href="{{ url_for('main.galeria') }}"{% if ep in ('main.galeria', 'main.obra') %} class="is-active"{% endif %}>Galeria</a>
+                <a href="{{ url_for('main.sobre') }}"{% if ep == 'main.sobre' %} class="is-active"{% endif %}>Sobre</a>
+                <a href="{{ url_for('main.contato') }}" class="btn btn-nav{% if ep == 'main.contato' %} is-active{% endif %}">Contato</a>
             </nav>
 
             <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-nav">
@@ -41,11 +42,6 @@
     </main>
 
     <footer class="site-footer">
-        <div class="footer-wave" aria-hidden="true">
-            <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
-                <path d="M0,40 C200,90 400,0 600,30 C800,60 1000,10 1200,40 L1200,80 L0,80 Z"></path>
-            </svg>
-        </div>
         <div class="footer-inner container">
             <p>&copy; 2026 Portfólio. Todos os direitos reservados.</p>
             <div class="socials">

@@ -8,7 +8,26 @@
     --accent-coral: #ff6b52;
     --accent-teal: #2bb7a3;
     --accent-gold: #f2c230;
-    --hero-vh: 92vh;
+    --hero-vh: 105vh;
+    --art-card: 30vh;
+}
+
+/* ---------- header sobre o hero (somente home) ---------- */
+.page-home .site-header {
+    background: linear-gradient(180deg, rgba(10, 10, 14, 0.55) 0%, rgba(10, 10, 14, 0) 100%);
+    border-bottom: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+.page-home .logo,
+.page-home .site-nav a:not(.btn) {
+    color: #fff;
+}
+.page-home .site-nav a:not(.btn)::after {
+    background: var(--accent-gold);
+}
+.page-home .nav-toggle span {
+    background: #fff;
 }
 
 /* ---------- hero cinematográfico ---------- */
@@ -107,7 +126,7 @@
     opacity: 0.9;
     transform: translate(0.05em, 0.1em);
 }
-
+/* 
 .hero-scroll-cue {
     position: absolute;
     left: 50%;
@@ -130,7 +149,7 @@
 @keyframes bob {
     0%, 100% { transform: translate(-50%, 0); }
     50% { transform: translate(-50%, 8px); }
-}
+} */
 
 /* ---------- seção de trabalhos ---------- */
 .works {
@@ -184,6 +203,7 @@
     background: var(--color-ink);
     color: #fff;
     box-shadow: var(--shadow-card);
+    height: var(--art-card) ;
 }
 .work-media {
     position: absolute;

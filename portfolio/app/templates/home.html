@@ -11,22 +11,20 @@
 {% block content %}
 <section class="hero-cover">
     <div class="hero-cover-media">
-        {% if hero_imagem %}
-        <img src="{{ url_for('static', filename='uploads/' ~ hero_imagem) }}" alt="">
-        {% endif %}
+        <img src="{{ url_for('static', filename='images/imagemFundoHome.jpeg') }}" alt="">
     </div>
     <div class="hero-cover-grain" aria-hidden="true"></div>
     <div class="hero-cover-scrim" aria-hidden="true"></div>
 
     <div class="hero-cover-content container">
-        <p class="hero-kicker">{{ hero_tagline|default('Design · Direção de arte · Ilustração') }}</p>
-        <h1 class="stylized-heading hero-title" data-text="{{ nome_portfolio|default('Seu Nome') }}">{{ nome_portfolio|default('Seu Nome') }}</h1>
+        <p class="hero-kicker">{{ hero_tagline|default('Ilustração · Pinturas · Arte Digital') }}</p>
+        <h1 class="stylized-heading hero-title" data-text="{{ nome_portfolio|default('Maria Eduarda Santana') }}">{{ nome_portfolio|default('Maria Eduarda Santana') }}</h1>
     </div>
 
-    <a href="#trabalhos" class="hero-scroll-cue">
+    <!-- <a href="#trabalhos" class="hero-scroll-cue">
         <span>Ver trabalhos</span>
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
-    </a>
+    </a> -->
 </section>
 
 {% if obras_destaque %}
